@@ -10,13 +10,15 @@ public class CharacterController2D: MonoBehaviour
     private int direction;
     public Animator animator;
     public string GravityDirection;
-    private bool onGround;
-    private float wallCollision;
+    public bool onGround;
+    public float wallCollision;
     private Rigidbody2D rb;
     private CapsuleCollider2D boxCollider2d;
     public float MovementSpeed = 15;
-    private bool isMoving = false;
+    public bool isMoving = false;
+    public bool isFlipping = false;
     public bool canTeleport = true;
+    public float jumpPower = 100f;
 
     void Awake()
     {
@@ -31,11 +33,13 @@ public class CharacterController2D: MonoBehaviour
         wallCollision = wallCollide();
         if (onGround)
         {
+            isFlipping = false;
             animator.SetBool("onGround", true);
             if (Time.time > nextFlipTime && !isMoving)
             {
                 if (Input.GetKeyDown(KeyCode.W) && GravityDirection != "Up")
                 {
+                    isFlipping = true;
                     wallAdjust(wallCollision, GravityDirection);
                     GravityDirection = "Up";
                     transform.rotation = Quaternion.Euler(Vector3.forward * 180);
@@ -46,6 +50,7 @@ public class CharacterController2D: MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.S) && GravityDirection != "Down")
                 {
+                    isFlipping = true;
                     wallAdjust(wallCollision, GravityDirection);
                     GravityDirection = "Down";
                     transform.rotation = Quaternion.Euler(Vector3.forward * 0);
@@ -56,6 +61,7 @@ public class CharacterController2D: MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.A) && GravityDirection != "Left")
                 {
+                    isFlipping = true;
                     wallAdjust(wallCollision, GravityDirection);
                     GravityDirection = "Left";
                     transform.rotation = Quaternion.Euler(Vector3.forward * 270);
@@ -66,6 +72,7 @@ public class CharacterController2D: MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.D) && GravityDirection != "Right")
                 {
+                    isFlipping = true;
                     wallAdjust(wallCollision, GravityDirection);
                     GravityDirection = "Right";
                     transform.rotation = Quaternion.Euler(Vector3.forward * 90);
@@ -75,118 +82,153 @@ public class CharacterController2D: MonoBehaviour
                     nextFlipTime = Time.time + cooldownTime;
                 }
             }
-
-            if (GravityDirection == "Down")
-            {
-                var movement = Input.GetAxis("Horizontal");
-                transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed;
-                animator.SetFloat("Speed", Mathf.Abs(movement));
-                if (movement > 0)
-                {
-                    direction = 1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                    isMoving = true;
-                }
-                else if (movement < 0)
-                {
-                    direction = -1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                    isMoving = true;
-                }
-                else
-                {
-                    isMoving = false;
-                }
-            }
-            else if (GravityDirection == "Up")
-            {
-                var movement = Input.GetAxis("Horizontal");
-                transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed;
-                animator.SetFloat("Speed", Mathf.Abs(movement));
-                if (movement > 0)
-                {
-                    direction = -1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                }
-                else if (movement < 0)
-                {
-                    direction = 1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                }
-            }
-            else if (GravityDirection == "Right")
-            {
-                var movement = Input.GetAxis("Vertical");
-                transform.position += new Vector3(0, movement, 0) * Time.deltaTime * MovementSpeed;
-                animator.SetFloat("Speed", Mathf.Abs(movement));
-                if (movement > 0)
-                {
-                    direction = 1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                    isMoving = true;
-                }
-                else if (movement < 0)
-                {
-                    direction = -1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                    isMoving = true;
-                }
-                else
-                {
-                    isMoving = false;
-                }
-            }
-            else if (GravityDirection == "Left")
-            {
-                var movement = Input.GetAxis("Vertical");
-                transform.position += new Vector3(0, movement, 0) * Time.deltaTime * MovementSpeed;
-                animator.SetFloat("Speed", Mathf.Abs(movement));
-                if (movement > 0)
-                {
-                    direction = -1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                    isMoving = true;
-                }
-                else if (movement < 0)
-                {
-                    direction = 1;
-                    transform.localScale = new Vector3(direction, 1, 1);
-                    isMoving = true;
-                }
-                else
-                {
-                    isMoving = false;
-                }
-            }
         }
         else
         {
             animator.SetBool("onGround", false);
         }
 
+        if (!isFlipping)
+        {
+            if (GravityDirection == "Down")
+            {
+                var movement = Input.GetAxis("Horizontal");
+                rb.position += new Vector2(movement, 0) * Time.deltaTime * MovementSpeed;
+                animator.SetFloat("Speed", Mathf.Abs(movement));
+                if (movement > 0)
+                {
+                    direction = 1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else if (movement < 0)
+                {
+                    direction = -1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else
+                {
+                    isMoving = false;
+                }
+
+                if (Input.GetButtonDown("Jump") && onGround)
+                {
+                    Vector2 jumpVelocity = new Vector2(0, jumpPower);
+                    rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
+                }
+            }
+            else if (GravityDirection == "Up")
+            {
+                var movement = Input.GetAxis("Horizontal");
+                rb.position += new Vector2(movement, 0) * Time.deltaTime * MovementSpeed;
+                animator.SetFloat("Speed", Mathf.Abs(movement));
+                if (movement > 0)
+                {
+                    direction = -1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else if (movement < 0)
+                {
+                    direction = 1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else
+                {
+                    isMoving = false;
+                }
+
+                if (Input.GetButtonDown("Jump") && onGround)
+                {
+                    Vector2 jumpVelocity = new Vector2(0, -jumpPower);
+                    rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
+                }
+            }
+            else if (GravityDirection == "Right")
+            {
+                var movement = Input.GetAxis("Vertical");
+                rb.position += new Vector2(0, movement) * Time.deltaTime * MovementSpeed;
+                animator.SetFloat("Speed", Mathf.Abs(movement));
+                if (movement > 0)
+                {
+                    direction = 1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else if (movement < 0)
+                {
+                    direction = -1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else
+                {
+                    isMoving = false;
+                }
+
+                if (Input.GetButtonDown("Jump") && onGround)
+                {
+                    Vector2 jumpVelocity = new Vector2(-jumpPower, 0);
+                    rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
+                }
+
+            }
+            else if (GravityDirection == "Left")
+            {
+                var movement = Input.GetAxis("Vertical");
+                rb.position += new Vector2(0, movement) * Time.deltaTime * MovementSpeed;
+                animator.SetFloat("Speed", Mathf.Abs(movement));
+                if (movement > 0)
+                {
+                    direction = -1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else if (movement < 0)
+                {
+                    direction = 1;
+                    transform.localScale = new Vector3(direction, 1, 1);
+                    isMoving = true;
+                }
+                else
+                {
+                    isMoving = false;
+                }
+
+                if (Input.GetButtonDown("Jump") && onGround)
+                {
+                    Vector2 jumpVelocity = new Vector2(jumpPower, 0);
+                    rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
+                }
+            }
+        }
     }
+
+
 
     private bool IsGrounded()
     {
         float extraHeight = .25f;
         if (GravityDirection == "Down")
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f,0,0), 0f, Vector2.down, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
         else if (GravityDirection == "Up")
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.up, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f, 0, 0), 0f, Vector2.up, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
         else if (GravityDirection == "Left")
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.left, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f, 0, 0), 0f, Vector2.left, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
         else
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.right, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f, 0, 0), 0f, Vector2.right, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
     }
