@@ -7,7 +7,7 @@ public class CharacterController2D: MonoBehaviour
     [SerializeField] private LayerMask platformLayerMask;
     private float nextFlipTime = 0;
     private float cooldownTime = 2;
-    private int direction;
+    public int direction;
     public Animator animator;
     public string GravityDirection;
     public bool onGround;

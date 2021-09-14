@@ -9,15 +9,32 @@ public class GrabController : MonoBehaviour
     public Transform boxHolder;
     public float rayDist = 2f;
     private GameObject box;
+    private RaycastHit2D grabCheck;
+
 
     void Update()
     {
-        RaycastHit2D grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
+        if (controller.GravityDirection == "Down")
+        {
+            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
+        }
+        else if (controller.GravityDirection == "Up")
+        {
+            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.left * transform.localScale, rayDist);
+        }
+        else if (controller.GravityDirection == "Left")
+        {
+            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.down * controller.direction, rayDist);
+        }
+        else if (controller.GravityDirection == "Right")
+        {
+            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.up * controller.direction, rayDist);
+        }
         
         if(grabCheck.collider != null && grabCheck.collider.tag == "Box")
         {
 
-            if (Input.GetKeyDown(KeyCode.F) && controller.canGrab)
+            if (Input.GetKeyDown(KeyCode.F) && controller.canGrab && !controller.isFlipping)
             {
                 controller.canGrab = false;
                 box = grabCheck.collider.gameObject;
@@ -32,7 +49,7 @@ public class GrabController : MonoBehaviour
                 box.transform.position = boxHolder.position;
             }
         }
-        else if (grabCheck.collider == null && !controller.canGrab)
+        else if (grabCheck.collider == null && !controller.canGrab && !controller.isFlipping)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
