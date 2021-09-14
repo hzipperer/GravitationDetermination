@@ -19,6 +19,7 @@ public class CharacterController2D: MonoBehaviour
     public bool isFlipping = false;
     public bool canTeleport = true;
     public float jumpPower = 100f;
+    public bool canGrab = true;
 
     void Awake()
     {
