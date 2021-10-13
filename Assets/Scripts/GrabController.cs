@@ -31,9 +31,8 @@ public class GrabController : MonoBehaviour
             grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.up * controller.direction, rayDist);
         }
         
-        if(grabCheck.collider != null && grabCheck.collider.tag == "Box" && !controller.isDead)
+        if(grabCheck.collider != null && grabCheck.collider.tag == "Box" && !controller.isDead && !PauseMenu.GameIsPaused)
         {
-
             if (Input.GetKeyDown(KeyCode.F) && controller.canGrab && !controller.isFlipping )
             {
                 controller.canGrab = false;
@@ -49,7 +48,7 @@ public class GrabController : MonoBehaviour
                 box.transform.position = boxHolder.position;
             }
         }
-        else if (grabCheck.collider == null && !controller.canGrab && !controller.isFlipping)
+        else if ( (grabCheck.collider == null || grabCheck.collider.tag != "Box") && !controller.canGrab && !controller.isFlipping && !PauseMenu.GameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.F) || controller.isDead)
             {

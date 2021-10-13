@@ -11,6 +11,7 @@ public class PressurePlate : MonoBehaviour
     void Start()
     {
         plateRenderer = GetComponent<SpriteRenderer>();
+        plateRenderer.color = Color.red;
     }
 
     // Update is called once per frame
@@ -19,12 +20,12 @@ public class PressurePlate : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerStay2D(Collider2D collider)
     {
         plateRenderer.color = Color.green;
     }
 
-    private void OnTriggerExit2D(Collider2D collider)
+    void OnTriggerExit2D(Collider2D collider)
     {
         plateRenderer.color = Color.red;
     }

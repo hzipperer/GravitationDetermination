@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Box
   - Spike
+  - Suppression
   layers:
   - Default
   - TransparentFX

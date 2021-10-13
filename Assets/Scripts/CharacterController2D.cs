@@ -7,7 +7,7 @@ public class CharacterController2D: MonoBehaviour
 {
     [SerializeField] private LayerMask platformLayerMask;
     private float nextFlipTime = 0;
-    private float cooldownTime = 2;
+    private float cooldownTime = 1;
     public int direction;
     public Animator animator;
     public string GravityDirection;
@@ -22,27 +22,33 @@ public class CharacterController2D: MonoBehaviour
     public float jumpPower = 100f;
     public bool canGrab = true;
     public bool isDead = false;
+    public bool canFlip = true;
+    private Player player;
+    private int currentSceneIndex;
 
 
     void Awake()
     {
+        player = GameObject.Find("PlayerInfo").GetComponent<Player>();
         isDead = false;
         GravityDirection = "Down";
+        Physics2D.gravity = new Vector2(0, -9.8f);
         rb = gameObject.GetComponent<Rigidbody2D>();
         boxCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
+        player.SavePlayer();
     }
 
     void Update()
     {
         onGround = IsGrounded();
         wallCollision = wallCollide();
-        if (!isDead)
+        if (!isDead && !PauseMenu.GameIsPaused)
         {
             if (onGround)
             {
                 isFlipping = false;
                 animator.SetBool("onGround", true);
-                if (Time.time > nextFlipTime && !isMoving)
+                if (Time.time > nextFlipTime && !isMoving && canFlip)
                 {
                     if (Input.GetKeyDown(KeyCode.W) && GravityDirection != "Up")
                     {
@@ -54,6 +60,7 @@ public class CharacterController2D: MonoBehaviour
                         rb.angularVelocity = 0;
                         Physics2D.gravity = new Vector2(0, 9.8f);
                         nextFlipTime = Time.time + cooldownTime;
+                        player.numberOfFlips += 1;
                     }
                     else if (Input.GetKeyDown(KeyCode.S) && GravityDirection != "Down")
                     {
@@ -65,6 +72,7 @@ public class CharacterController2D: MonoBehaviour
                         rb.angularVelocity = 0;
                         Physics2D.gravity = new Vector2(0, -9.8f);
                         nextFlipTime = Time.time + cooldownTime;
+                        player.numberOfFlips += 1;
                     }
                     else if (Input.GetKeyDown(KeyCode.A) && GravityDirection != "Left")
                     {
@@ -76,6 +84,7 @@ public class CharacterController2D: MonoBehaviour
                         rb.angularVelocity = 0;
                         Physics2D.gravity = new Vector2(-9.8f, 0);
                         nextFlipTime = Time.time + cooldownTime;
+                        player.numberOfFlips += 1;
                     }
                     else if (Input.GetKeyDown(KeyCode.D) && GravityDirection != "Right")
                     {
@@ -87,6 +96,7 @@ public class CharacterController2D: MonoBehaviour
                         rb.angularVelocity = 0;
                         Physics2D.gravity = new Vector2(9.8f, 0);
                         nextFlipTime = Time.time + cooldownTime;
+                        player.numberOfFlips += 1;
                     }
                 }
             }
@@ -318,6 +328,17 @@ public class CharacterController2D: MonoBehaviour
         {
             isDead = true;
             animator.SetBool("isDead", true);
+            player.numberOfDeaths += 1;
+        }
+        else if (col.gameObject.tag.Equals("Goal"))
+        {
+            player.levelsBeaten += 1;
+            if (SceneManager.GetActiveScene().buildIndex != 12)
+            {
+                currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                player.levelUnlocked[currentSceneIndex - 1] = true;
+                player.SavePlayer();
+            }
         }
     }
 
