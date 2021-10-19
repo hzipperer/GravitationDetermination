@@ -14,7 +14,7 @@ public class CharacterController2D: MonoBehaviour
     public bool onGround;
     public float wallCollision;
     private Rigidbody2D rb;
-    private CapsuleCollider2D boxCollider2d;
+    public CapsuleCollider2D boxCollider2d;
     public float MovementSpeed = 15;
     public bool isMoving = false;
     public bool isFlipping = false;
@@ -25,10 +25,12 @@ public class CharacterController2D: MonoBehaviour
     public bool canFlip = true;
     private Player player;
     private int currentSceneIndex;
+    private GameObject respawnPoint;
 
 
     void Awake()
     {
+        respawnPoint = GameObject.Find("RespawnPoint");
         player = GameObject.Find("PlayerInfo").GetComponent<Player>();
         isDead = false;
         GravityDirection = "Down";
@@ -222,11 +224,6 @@ public class CharacterController2D: MonoBehaviour
                 }
             }
         }
-
-        if (Input.GetKeyDown("r"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
         
     }
 
@@ -329,6 +326,8 @@ public class CharacterController2D: MonoBehaviour
             isDead = true;
             animator.SetBool("isDead", true);
             player.numberOfDeaths += 1;
+            StartCoroutine(waiter());
+
         }
         else if (col.gameObject.tag.Equals("Goal"))
         {
@@ -340,6 +339,23 @@ public class CharacterController2D: MonoBehaviour
                 player.SavePlayer();
             }
         }
+    }
+
+    IEnumerator waiter()
+    {
+        yield return new WaitForSeconds(1);
+        Respawn();
+    }
+
+    void Respawn()
+    {
+        player.SavePlayer();
+        isDead = false;
+        animator.SetBool("isDead", false);
+        transform.position = respawnPoint.transform.position;
+        transform.rotation = respawnPoint.transform.rotation;
+        GravityDirection = "Down";
+        Physics2D.gravity = new Vector2(0, -9.8f);
     }
 
 }

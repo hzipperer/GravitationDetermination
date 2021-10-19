@@ -35,7 +35,6 @@ public class SettingsMenu : MonoBehaviour
         SaveSystem.DeleteSaves();
         player.LoadPlayer();
         statsMenu.updateStats();
-        selectMenu.updateTimes();
         selectMenu.unlockLevels();
     }
 

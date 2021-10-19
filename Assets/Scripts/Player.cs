@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public int timesPlayed = 0;
     public int levelsBeaten = 0;
     public bool[] levelUnlocked = new bool[11];
-    public double[] levelTimes = new double[12];
 
     void Awake()
     {
@@ -32,7 +31,6 @@ public class Player : MonoBehaviour
         levelsBeaten = data.levelsBeaten;
 
         data.levelUnlocked.CopyTo(levelUnlocked, 0);
-        data.levelTimes.CopyTo(levelTimes, 0);
 
     }
 

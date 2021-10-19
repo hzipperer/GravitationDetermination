@@ -11,7 +11,6 @@ public class PlayerData
     public int timesPlayed;
     public int levelsBeaten;
     public bool[] levelUnlocked;
-    public double[] levelTimes;
 
     public PlayerData (Player player)
     {
@@ -21,10 +20,8 @@ public class PlayerData
         levelsBeaten = player.levelsBeaten;
 
         levelUnlocked = new bool[11];
-        levelTimes = new double[12];
 
         player.levelUnlocked.CopyTo(levelUnlocked, 0);
-        player.levelTimes.CopyTo(levelTimes, 0);
     }
 
     public PlayerData()
@@ -35,7 +32,6 @@ public class PlayerData
         levelsBeaten = 0;
 
         levelUnlocked = new bool[11];
-        levelTimes = new double[12];
 
     }
 }

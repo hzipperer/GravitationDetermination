@@ -5,28 +5,15 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
 
-    SpriteRenderer plateRenderer;
+    public Animator animator;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnCollisionStay2D(Collision2D collider)
     {
-        plateRenderer = GetComponent<SpriteRenderer>();
-        plateRenderer.color = Color.red;
+        animator.SetBool("IsPressed", true);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionExit2D(Collision2D collider)
     {
-        
-    }
-
-    void OnTriggerStay2D(Collider2D collider)
-    {
-        plateRenderer.color = Color.green;
-    }
-
-    void OnTriggerExit2D(Collider2D collider)
-    {
-        plateRenderer.color = Color.red;
+        animator.SetBool("IsPressed", false);
     }
 }
