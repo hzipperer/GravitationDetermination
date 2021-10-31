@@ -1,31 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class GravityGate : MonoBehaviour
 {
-    public string gateDirection;
-    public GameObject gate;
-    public GameObject player;
-    private CharacterController2D controller;
+	public string gateDirection;
 
-    void Awake()
-    {
-        controller = player.GetComponent<CharacterController2D>();
-    }
+	public GameObject gate;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (gateDirection.Equals(controller.GravityDirection))
-        {
-            gate.GetComponent<BoxCollider2D>().enabled = false;
-            gate.GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        else
-        {
-            gate.GetComponent<BoxCollider2D>().enabled = true;
-            gate.GetComponent<SpriteRenderer>().color = Color.red;
-        }
-    }
+	public GameObject player;
+
+	public GameObject glow;
+
+	private CharacterController2D controller;
+
+	private void Awake()
+	{
+		controller = player.GetComponent<CharacterController2D>();
+	}
+
+	private void Update()
+	{
+		if (gateDirection.Equals(controller.GravityDirection))
+		{
+			gate.GetComponent<BoxCollider2D>().enabled = false;
+			glow.GetComponent<Light2D>().color = Color.green;
+		}
+		else
+		{
+			gate.GetComponent<BoxCollider2D>().enabled = true;
+			glow.GetComponent<Light2D>().color = Color.red;
+		}
+	}
 }

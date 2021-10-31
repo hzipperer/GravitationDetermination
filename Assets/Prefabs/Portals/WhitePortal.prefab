@@ -314,7 +314,7 @@ SpriteRenderer:
   m_Sprite: {fileID: -7590852279806083750, guid: 46bb95ff549fe484192add19ab55191d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
@@ -355,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   otherPortal: {fileID: 0}
   player: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!70 &8713675981078311334
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

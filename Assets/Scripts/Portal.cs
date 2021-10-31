@@ -8,6 +8,7 @@ public class Portal : MonoBehaviour
     public GameObject otherPortal;
     public GameObject player;
     private CharacterController2D controller;
+    public Vector3 offset;
 
     void Awake()
     {
@@ -24,7 +25,7 @@ public class Portal : MonoBehaviour
 
     void Teleport(Collider2D other)
     {
-        other.transform.position = otherPortal.transform.position;
+        other.transform.position = otherPortal.transform.position + offset;
         controller.canTeleport = false;
         StartCoroutine(Cooldown());
     }

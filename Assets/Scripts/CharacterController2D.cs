@@ -26,6 +26,7 @@ public class CharacterController2D: MonoBehaviour
     private Player player;
     private int currentSceneIndex;
     private GameObject respawnPoint;
+    public AudioSource deathGrunt;
 
 
     void Awake()
@@ -321,23 +322,30 @@ public class CharacterController2D: MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag.Equals("Spike"))
+        if (col.gameObject.tag.Equals("Spike") && !isDead)
         {
             isDead = true;
             animator.SetBool("isDead", true);
+            deathGrunt.Play(0);
             player.numberOfDeaths += 1;
             StartCoroutine(waiter());
 
         }
-        else if (col.gameObject.tag.Equals("Goal"))
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag.Equals("Goal"))
         {
-            player.levelsBeaten += 1;
+            Debug.Log("Goal Reached");
+            GoalMenu.levelIsBeaten = true;
+            player.levelsBeaten++;
             if (SceneManager.GetActiveScene().buildIndex != 12)
             {
                 currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 player.levelUnlocked[currentSceneIndex - 1] = true;
-                player.SavePlayer();
             }
+            player.SavePlayer();
         }
     }
 
