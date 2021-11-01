@@ -257,7 +257,7 @@ public class CharacterController2D: MonoBehaviour
 
     private float wallCollide()
     {
-        float extraHeight = 4f;
+        float extraHeight = 2f;
         if (GravityDirection == "Down" || GravityDirection == "Up")
         {
             RaycastHit2D leftHit = Physics2D.Raycast(boxCollider2d.bounds.center, Vector2.left, extraHeight, platformLayerMask);
@@ -300,22 +300,22 @@ public class CharacterController2D: MonoBehaviour
         {
             if (collisionDirection < 0)
             {
-                transform.position += new Vector3(-4 - collisionDirection, 0, 0);
+                transform.position += new Vector3(-2 - collisionDirection, 0, 0);
             }
             else if (collisionDirection > 0)
             {
-                transform.position += new Vector3(4 - collisionDirection, 0, 0);
+                transform.position += new Vector3(2 - collisionDirection, 0, 0);
             }
         }
         else
         {
             if (collisionDirection < 0)
             {
-                transform.position += new Vector3(0, -4 - collisionDirection, 0);
+                transform.position += new Vector3(0, -2 - collisionDirection, 0);
             }
             else if (collisionDirection > 0)
             {
-                transform.position += new Vector3(0, 4 - collisionDirection, 0);
+                transform.position += new Vector3(0, 2 - collisionDirection, 0);
             }
         }
     }

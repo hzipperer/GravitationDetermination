@@ -3,31 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public Slider volumeSlider;
-    public float volume;
     private GameObject playerInfo;
     private Player player;
     public StatsMenu statsMenu;
     public LevelSelectMenu selectMenu;
+    public TMP_Dropdown qualityDropdown;
 
-    public void Update()
+    void Start()
     {
-        audioMixer.GetFloat("Volume", out volume);
-        volumeSlider.value = volume;
+        volumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
+        qualityDropdown.value = PlayerPrefs.GetInt("Quality", 0);
+        QualitySettings.SetQualityLevel(qualityDropdown.value);
     }
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20f);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
     }
 
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+        PlayerPrefs.SetInt("Quality", qualityIndex);
     }
 
     public void Delete()
