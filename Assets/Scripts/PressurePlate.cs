@@ -6,13 +6,13 @@ public class PressurePlate : MonoBehaviour
 
 	public GameObject door;
 
-	private void OnCollisionStay2D(Collision2D collider)
+	private void OnTriggerStay2D(Collider2D collider)
 	{
 		animator.SetBool("IsPressed", value: true);
 		door.SetActive(value: false);
 	}
 
-	private void OnCollisionExit2D(Collision2D collider)
+	private void OnTriggerExit2D(Collider2D collider)
 	{
 		animator.SetBool("IsPressed", value: false);
 		door.SetActive(value: true);

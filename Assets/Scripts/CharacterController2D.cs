@@ -232,25 +232,25 @@ public class CharacterController2D: MonoBehaviour
 
     private bool IsGrounded()
     {
-        float extraHeight = .25f;
+        float extraHeight = 0f;
         if (GravityDirection == "Down")
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f,0,0), 0f, Vector2.down, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center - new Vector3(0, 2f, 0), boxCollider2d.bounds.size - new Vector3(0.5f, 3.5f, 0), 0f, Vector2.down, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
         else if (GravityDirection == "Up")
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f, 0, 0), 0f, Vector2.up, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center - new Vector3(0, -2f, 0), boxCollider2d.bounds.size - new Vector3(0.5f, 3.5f, 0), 0f, Vector2.up, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
         else if (GravityDirection == "Left")
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f, 0, 0), 0f, Vector2.left, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center - new Vector3(2f, 0, 0), boxCollider2d.bounds.size - new Vector3(3.5f, 0.5f, 0), 0f, Vector2.left, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
         else
         {
-            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size - new Vector3(0.5f, 0, 0), 0f, Vector2.right, extraHeight, platformLayerMask);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center - new Vector3(-2f, 0, 0), boxCollider2d.bounds.size - new Vector3(3.5f, 0.5f, 0), 0f, Vector2.right, extraHeight, platformLayerMask);
             return raycastHit.collider != null;
         }
     }
@@ -320,7 +320,7 @@ public class CharacterController2D: MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag.Equals("Spike") && !isDead)
         {
@@ -355,7 +355,7 @@ public class CharacterController2D: MonoBehaviour
         Respawn();
     }
 
-    void Respawn()
+    private void Respawn()
     {
         player.SavePlayer();
         isDead = false;

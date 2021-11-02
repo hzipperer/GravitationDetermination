@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 8221136299900851407}
   - component: {fileID: 8221136299900851400}
   m_Layer: 6
-  m_Name: GravityGate
+  m_Name: GravityGate 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

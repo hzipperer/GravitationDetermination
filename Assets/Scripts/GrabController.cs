@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GrabController : MonoBehaviour
 {
+    [SerializeField] private LayerMask boxLayerMask;
     public CharacterController2D controller;
     public Transform grabDetect;
     public Transform boxHolder;
-    public float rayDist = 2f;
     private GameObject box;
     private RaycastHit2D grabCheck;
 
@@ -16,19 +16,19 @@ public class GrabController : MonoBehaviour
     {
         if (controller.GravityDirection == "Down")
         {
-            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
+            grabCheck = Physics2D.BoxCast(grabDetect.position, new Vector3(0.75f, 1.25f, 0), 0f, Vector2.right * transform.localScale, 0, boxLayerMask);
         }
         else if (controller.GravityDirection == "Up")
         {
-            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.left * transform.localScale, rayDist);
+            grabCheck = Physics2D.BoxCast(grabDetect.position, new Vector3(0.75f, 1.25f, 0), 0f, Vector2.left * transform.localScale, 0, boxLayerMask);
         }
         else if (controller.GravityDirection == "Left")
         {
-            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.down * controller.direction, rayDist);
+            grabCheck = Physics2D.BoxCast(grabDetect.position, new Vector3(1.25f, 0.75f, 0), 0f, Vector2.down * controller.direction, 0, boxLayerMask);
         }
         else if (controller.GravityDirection == "Right")
         {
-            grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.up * controller.direction, rayDist);
+            grabCheck = Physics2D.BoxCast(grabDetect.position, new Vector3(1.25f, 0.75f, 0), 0f, Vector2.up * controller.direction, 0, boxLayerMask);
         }
         
         if(grabCheck.collider != null && grabCheck.collider.tag == "Box" && !controller.isDead && !PauseMenu.GameIsPaused)
