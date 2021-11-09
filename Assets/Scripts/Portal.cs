@@ -17,7 +17,7 @@ public class Portal : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (controller.canTeleport)
+        if (controller.canTeleport || other.gameObject.name != "Player")
         {
             Teleport(other);
         }

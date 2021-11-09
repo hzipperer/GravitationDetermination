@@ -31,6 +31,7 @@ public class CharacterController2D: MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1f;
         respawnPoint = GameObject.Find("RespawnPoint");
         player = GameObject.Find("PlayerInfo").GetComponent<Player>();
         isDead = false;

@@ -29,6 +29,15 @@ public class GoalMenu : MonoBehaviour
         sound.pitch = 1f;
     }
 
+    public void NextLevel()
+    {
+        GoalMenu.levelIsBeaten = false;
+        GoalMenuUI.SetActive(false);
+        Time.timeScale = 0f;
+        PauseMenu.GameIsPaused = false;
+        sound.Stop();
+    }
+
     void Pause()
     {
         GoalMenuUI.SetActive(true);
@@ -48,4 +57,5 @@ public class GoalMenu : MonoBehaviour
         Resume();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
 }
