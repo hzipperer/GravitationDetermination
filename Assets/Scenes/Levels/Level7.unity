@@ -7688,6 +7688,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6278192245683978163, guid: 68e60a90e1b90a8499834cc44c84baf0, type: 3}
+      propertyPath: m_Mass
+      value: 3.0625
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278192245683978163, guid: 68e60a90e1b90a8499834cc44c84baf0, type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6571740807687423566, guid: 68e60a90e1b90a8499834cc44c84baf0, type: 3}
       propertyPath: m_Name
       value: Crate
