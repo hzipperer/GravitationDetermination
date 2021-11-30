@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class GravityGate : MonoBehaviour
 {
@@ -23,12 +23,12 @@ public class GravityGate : MonoBehaviour
 		if (gateDirection.Equals(controller.GravityDirection))
 		{
 			gate.GetComponent<BoxCollider2D>().enabled = false;
-			glow.GetComponent<Light2D>().color = Color.green;
+			glow.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.green;
 		}
 		else
 		{
 			gate.GetComponent<BoxCollider2D>().enabled = true;
-			glow.GetComponent<Light2D>().color = Color.red;
+			glow.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.red;
 		}
 	}
 }

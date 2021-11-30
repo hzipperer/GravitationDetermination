@@ -5103,6 +5103,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2524662329645977460, guid: 91ea4346e37bac449a9f18bfa1b923a1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5034901127803585739, guid: 91ea4346e37bac449a9f18bfa1b923a1, type: 3}
       propertyPath: sound
       value: 

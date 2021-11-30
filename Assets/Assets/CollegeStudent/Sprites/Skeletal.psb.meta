@@ -25,6 +25,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +80,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -103,7 +103,6 @@ ScriptedImporter:
       width: 78
       height: 155
     spriteID: 51950e95169027e46ba929e410aa5737
-    internalID: 0
     spriteBone:
     - name: bone_6
       guid: 
@@ -509,7 +508,6 @@ ScriptedImporter:
       width: 82
       height: 144
     spriteID: 6e409f2db9706b04a8aa6b6f9a399876
-    internalID: 0
     spriteBone:
     - name: bone_5
       guid: 
@@ -1025,7 +1023,6 @@ ScriptedImporter:
       width: 42
       height: 176
     spriteID: d3bb4d99505227a4b816a793d0b898a2
-    internalID: 0
     spriteBone:
     - name: bone_23
       guid: 
@@ -1452,7 +1449,6 @@ ScriptedImporter:
       width: 82
       height: 156
     spriteID: 93723167175f67d4681c908402e6132d
-    internalID: 0
     spriteBone:
     - name: bone_18
       guid: 
@@ -1877,7 +1873,6 @@ ScriptedImporter:
       width: 215
       height: 224
     spriteID: 813616e6d76062645a9fc1e06d7ed85b
-    internalID: 0
     spriteBone:
     - name: bone_4
       guid: 
@@ -2248,7 +2243,6 @@ ScriptedImporter:
       width: 217
       height: 385
     spriteID: a1ab7cf04ae4c51418fe7e133abec61d
-    internalID: 0
     spriteBone:
     - name: bone_1
       guid: 
@@ -2686,7 +2680,6 @@ ScriptedImporter:
       width: 89
       height: 194
     spriteID: a3beb4003a7b89f4cb10e1e197e9f095
-    internalID: 0
     spriteBone:
     - name: bone_12
       guid: 
@@ -3124,7 +3117,6 @@ ScriptedImporter:
       width: 104
       height: 232
     spriteID: ad4c825b783094145b1986f763af2c68
-    internalID: 0
     spriteBone:
     - name: bone_11
       guid: 
@@ -3582,7 +3574,6 @@ ScriptedImporter:
       width: 75
       height: 192
     spriteID: 8aa365b2263910d4b86c8bd5a506fb72
-    internalID: 0
     spriteBone:
     - name: bone_10
       guid: 
@@ -4130,7 +4121,6 @@ ScriptedImporter:
       width: 91
       height: 233
     spriteID: 65abb94d434e85d4ba212c6f586d1dcd
-    internalID: 0
     spriteBone:
     - name: bone_9
       guid: 
@@ -4657,7 +4647,6 @@ ScriptedImporter:
       width: 80
       height: 150
     spriteID: 8399929d51a9cbd4b943cf9c00c4eb7b
-    internalID: 0
     spriteBone:
     - name: bone_8
       guid: 
@@ -5093,7 +5082,6 @@ ScriptedImporter:
       width: 82
       height: 147
     spriteID: a072cd55994a30449996998108061f45
-    internalID: 0
     spriteBone:
     - name: bone_7
       guid: 
@@ -5609,7 +5597,6 @@ ScriptedImporter:
       width: 105
       height: 255
     spriteID: cec82cfd5313deb44a78831cf03460b0
-    internalID: 0
     spriteBone:
     - name: bone_16
       guid: 
@@ -6709,16 +6696,13 @@ ScriptedImporter:
   documentPivot: {x: 0, y: -2}
   documentAlignment: 0
   importHiddenLayers: 0
-  importedTextureWidth: 512
-  importedTextureHeight: 1024
-  documentSize: {x: 1024, y: 1024}
+  layerMappingOption: 2
+  generatePhysicsShape: 0
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   skeletonAssetReferenceID: 
   spriteCategoryList:
     categories: []
-  textureActualWidth: 512
-  textureActualHeight: 1024
   spritePackingTag: 
   resliceFromLayer: 0
   mosaicPSDLayers: []
@@ -6730,6 +6714,9 @@ ScriptedImporter:
     spriteID: 51950e95169027e46ba929e410aa5737
     layerID: 14
     mosaicPosition: {x: 229, y: 811}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: arm front up
     spriteName: arm front up
     isGroup: 0
@@ -6737,6 +6724,9 @@ ScriptedImporter:
     spriteID: 6e409f2db9706b04a8aa6b6f9a399876
     layerID: 13
     mosaicPosition: {x: 416, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: hair side
     spriteName: hair side
     isGroup: 0
@@ -6744,6 +6734,9 @@ ScriptedImporter:
     spriteID: d3bb4d99505227a4b816a793d0b898a2
     layerID: 12
     mosaicPosition: {x: 328, y: 162}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: hair front
     spriteName: hair front
     isGroup: 0
@@ -6751,6 +6744,9 @@ ScriptedImporter:
     spriteID: 93723167175f67d4681c908402e6132d
     layerID: 11
     mosaicPosition: {x: 229, y: 647}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: head
     spriteName: head
     isGroup: 0
@@ -6758,6 +6754,9 @@ ScriptedImporter:
     spriteID: 813616e6d76062645a9fc1e06d7ed85b
     layerID: 10
     mosaicPosition: {x: 4, y: 397}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: body
     spriteName: body
     isGroup: 0
@@ -6765,6 +6764,9 @@ ScriptedImporter:
     spriteID: a1ab7cf04ae4c51418fe7e133abec61d
     layerID: 9
     mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: leg front down
     spriteName: leg front down
     isGroup: 0
@@ -6772,6 +6774,9 @@ ScriptedImporter:
     spriteID: a3beb4003a7b89f4cb10e1e197e9f095
     layerID: 8
     mosaicPosition: {x: 229, y: 245}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: leg front up
     spriteName: leg front up
     isGroup: 0
@@ -6779,6 +6784,9 @@ ScriptedImporter:
     spriteID: ad4c825b783094145b1986f763af2c68
     layerID: 7
     mosaicPosition: {x: 117, y: 629}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: leg back down
     spriteName: leg back down
     isGroup: 0
@@ -6786,6 +6794,9 @@ ScriptedImporter:
     spriteID: 8aa365b2263910d4b86c8bd5a506fb72
     layerID: 6
     mosaicPosition: {x: 229, y: 447}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: leg back up
     spriteName: leg back up
     isGroup: 0
@@ -6793,6 +6804,9 @@ ScriptedImporter:
     spriteID: 65abb94d434e85d4ba212c6f586d1dcd
     layerID: 5
     mosaicPosition: {x: 229, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: arm back down
     spriteName: arm back down
     isGroup: 0
@@ -6800,6 +6814,9 @@ ScriptedImporter:
     spriteID: 8399929d51a9cbd4b943cf9c00c4eb7b
     layerID: 4
     mosaicPosition: {x: 328, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: arm back up
     spriteName: arm back up
     isGroup: 0
@@ -6807,6 +6824,9 @@ ScriptedImporter:
     spriteID: a072cd55994a30449996998108061f45
     layerID: 3
     mosaicPosition: {x: 117, y: 869}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: pony tail
     spriteName: pony tail
     isGroup: 0
@@ -6814,7 +6834,11 @@ ScriptedImporter:
     spriteID: cec82cfd5313deb44a78831cf03460b0
     layerID: 2
     mosaicPosition: {x: 4, y: 629}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
   generateGOHierarchy: 0
   textureAssetName: Skeletal Texture
   prefabAssetName: Skeletal Prefab
